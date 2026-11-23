@@ -2,6 +2,6 @@
 // La clé anon/publishable est destinée au navigateur : elle n'est pas un mot de passe.
 // Ne colle JAMAIS une clé service_role ou secret ici.
 window.EVENTS_CONFIG = {
-  SUPABASE_URL: "ttps://epbwvopybisrekzmbshz.supabase.co",
+  SUPABASE_URL: "https://epbwvopybisrekzmbshz.supabase.co",
   SUPABASE_ANON_KEY: "sb_publishable_Fw7M8XZk_JyVmlr2RzUOdA_bFXnNXyR"
 };
