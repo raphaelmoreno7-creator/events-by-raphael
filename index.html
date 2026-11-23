@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#dceefa">
+  <title>Events — Espace familial</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./"><span class="brand-mark">E</span><span>EVENTS <small>ESPACE FAMILIAL</small></span></a>
+    <button id="admin-open" class="button button-outline">Administration</button>
+  </header>
+
+  <main class="container">
+    <section id="public-view" class="hidden">
+      <div class="invitation-card">
+        <p class="eyebrow">VOUS ÊTES INVITÉ(E)</p>
+        <div class="gold-line"></div>
+        <h1 id="public-title">Une belle occasion de se retrouver</h1>
+        <p id="public-description" class="lead"></p>
+        <div class="event-details">
+          <div><span>DATE</span><strong id="public-date">À préciser</strong></div>
+          <div><span>HORAIRE</span><strong id="public-time">À préciser</strong></div>
+          <div><span>LIEU</span><strong id="public-location">Communiqué aux invités</strong></div>
+        </div>
+        <div class="gold-line"></div>
+        <h2>Votre réponse</h2>
+        <p class="muted">Merci d'indiquer si vous serez présent(e).</p>
+        <form id="rsvp-form" class="form-grid">
+          <label>Prénom et nom<input name="full_name" maxlength="100" required placeholder="Votre prénom et nom"></label>
+          <label>Votre réponse
+            <select name="status" required>
+              <option value="present">Je serai présent(e)</option>
+              <option value="absent">Je ne pourrai pas venir</option>
+            </select>
+          </label>
+          <label>Nombre de personnes (vous compris)
+            <input name="party_size" type="number" min="1" max="20" value="1" required>
+          </label>
+          <label>Petit message (facultatif)
+            <textarea name="note" maxlength="500" rows="3" placeholder="Un commentaire…"></textarea>
+          </label>
+          <button class="button button-primary full" type="submit">Envoyer ma réponse</button>
+          <p id="rsvp-feedback" class="feedback full" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="home-view" class="hero">
+      <p class="eyebrow">VOS MOMENTS, SIMPLEMENT ORGANISÉS</p>
+      <h1>Les belles occasions<br><span>se partagent.</span></h1>
+      <p class="lead">Un espace pour créer des événements, envoyer des invitations et suivre les réponses de vos proches.</p>
+      <div class="hero-actions">
+        <button id="home-admin" class="button button-primary">Accéder à mon espace</button>
+      </div>
+      <div class="feature-row">
+        <div class="feature"><b>01</b><strong>Créer</strong><span>Vos événements</span></div>
+        <div class="feature"><b>02</b><strong>Inviter</strong><span>Un lien à partager</span></div>
+        <div class="feature"><b>03</b><strong>Organiser</strong><span>Les réponses au même endroit</span></div>
+      </div>
+    </section>
+
+    <section id="login-view" class="panel narrow hidden">
+      <button class="text-button" id="back-home">← Retour</button>
+      <p class="eyebrow">ESPACE PRIVÉ</p>
+      <h1>Administration</h1>
+      <p class="muted">Connectez-vous pour gérer vos événements et les réponses.</p>
+      <form id="login-form" class="form-grid">
+        <label>Adresse e-mail<input name="email" type="email" autocomplete="username" required></label>
+        <label>Mot de passe<input name="password" type="password" autocomplete="current-password" required></label>
+        <button class="button button-primary full" type="submit">Se connecter</button>
+        <p id="login-feedback" class="feedback full" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section id="dashboard-view" class="hidden">
+      <div class="dashboard-heading">
+        <div><p class="eyebrow">ESPACE ADMINISTRATEUR</p><h1>Mes événements</h1><p class="muted">Créez et gérez vos invitations familiales.</p></div>
+        <button id="logout" class="button button-outline">Déconnexion</button>
+      </div>
+      <div class="stats-grid">
+        <div class="stat"><span>ÉVÉNEMENTS</span><strong id="stat-events">0</strong></div>
+        <div class="stat"><span>RÉPONSES</span><strong id="stat-replies">0</strong></div>
+        <div class="stat"><span>PERSONNES PRÉSENTES</span><strong id="stat-people">0</strong></div>
+        <div class="stat"><span>ABSENTS</span><strong id="stat-absent">0</strong></div>
+      </div>
+      <div class="section-heading"><h2>Événements</h2><button id="new-event" class="button button-primary">＋ Nouvel événement</button></div>
+      <div id="events-list" class="events-list"></div>
+      <p id="dashboard-feedback" class="feedback" aria-live="polite"></p>
+    </section>
+
+    <section id="event-admin-view" class="hidden">
+      <button id="back-dashboard" class="text-button">← Tous mes événements</button>
+      <div class="dashboard-heading">
+        <div><p class="eyebrow">GESTION DE L'ÉVÉNEMENT</p><h1 id="manage-title">Événement</h1><p id="manage-meta" class="muted"></p></div>
+        <div class="inline-actions">
+          <button id="edit-event" class="button button-outline">Modifier</button>
+          <button id="delete-event" class="button button-danger">Supprimer</button>
+        </div>
+      </div>
+      <div class="share-box">
+        <div><strong>Lien de l'invitation</strong><p class="muted">Copiez ce lien pour l'envoyer à vos invités.</p><code id="share-url"></code></div>
+        <button id="copy-link" class="button button-primary">Copier le lien</button>
+      </div>
+      <div class="stats-grid">
+        <div class="stat"><span>RÉPONSES</span><strong id="event-replies">0</strong></div>
+        <div class="stat"><span>PRÉSENTS</span><strong id="event-present">0</strong></div>
+        <div class="stat"><span>PERSONNES ATTENDUES</span><strong id="event-guests">0</strong></div>
+        <div class="stat"><span>ABSENTS</span><strong id="event-absent">0</strong></div>
+      </div>
+      <div class="section-heading"><h2>Réponses des invités</h2><span class="muted small">Vous pouvez modifier ou supprimer chaque réponse.</span></div>
+      <div class="table-wrap">
+        <table><thead><tr><th>Invité</th><th>Réponse</th><th>Personnes</th><th>Message</th><th>Actions</th></tr></thead><tbody id="rsvp-table"></tbody></table>
+      </div>
+      <p id="rsvp-admin-feedback" class="feedback" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <dialog id="event-dialog" class="dialog">
+    <form id="event-form" method="dialog">
+      <div class="dialog-heading"><div><p class="eyebrow">CONFIGURATION</p><h2 id="event-dialog-title">Nouvel événement</h2></div><button type="button" class="close-button" id="close-event-dialog">×</button></div>
+      <input type="hidden" name="id">
+      <label>Nom de l'événement<input name="title" maxlength="120" required placeholder="Ex. Anniversaire de Raphaël"></label>
+      <label>Date<input name="event_date" type="date"></label>
+      <label>Horaire<input name="event_time" maxlength="80" placeholder="Ex. À partir de 18 h 30"></label>
+      <label>Lieu affiché sur l'invitation<input name="location_label" maxlength="160" placeholder="Ex. Clermont-Ferrand (adresse communiquée en privé)"></label>
+      <label>Description<textarea name="description" rows="3" maxlength="800" placeholder="Quelques mots pour vos invités…"></textarea></label>
+      <label>Couleur du carton
+        <select name="theme"><option value="blue-gold">Bleu ciel, blanc et or</option><option value="navy-gold">Bleu nuit et or</option><option value="pink-gold">Rose et or</option><option value="classic">Blanc et argent</option></select>
+      </label>
+      <label class="checkbox-label"><input name="published" type="checkbox" checked> Invitation accessible aux invités</label>
+      <button class="button button-primary full" type="submit">Enregistrer l'événement</button>
+      <p id="event-form-feedback" class="feedback"></p>
+    </form>
+  </dialog>
+
+  <dialog id="rsvp-dialog" class="dialog">
+    <form id="rsvp-edit-form" method="dialog">
+      <div class="dialog-heading"><div><p class="eyebrow">MODIFICATION</p><h2>Modifier une réponse</h2></div><button type="button" class="close-button" id="close-rsvp-dialog">×</button></div>
+      <input type="hidden" name="id">
+      <label>Prénom et nom<input name="full_name" maxlength="100" required></label>
+      <label>Réponse<select name="status"><option value="present">Présent(e)</option><option value="absent">Absent(e)</option></select></label>
+      <label>Nombre de personnes<input name="party_size" type="number" min="1" max="20" required></label>
+      <label>Message<textarea name="note" rows="3" maxlength="500"></textarea></label>
+      <button class="button button-primary full" type="submit">Enregistrer les modifications</button>
+      <p id="rsvp-edit-feedback" class="feedback"></p>
+    </form>
+  </dialog>
+
+  <footer><span>EVENTS</span><span>Un espace pour vos moments en famille</span></footer>
+  <script src="config.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
